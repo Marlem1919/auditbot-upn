@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AuditBot – Entorno de la Auditoría Financiera</title>
+<style>
+:root{--red:#c8102e;--dark:#202124;--bg:#f4f5f7;--card:#fff;--muted:#687078;--ok:#177245;--bad:#a61b29}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--dark)}
+header{background:var(--dark);color:white;padding:18px 16px;border-bottom:5px solid var(--red)}
+header h1{margin:0;font-size:21px} header p{margin:5px 0 0;color:#ddd;font-size:13px}
+.wrap{max-width:760px;margin:auto;padding:16px}.chat{background:white;border-radius:14px;padding:15px;min-height:410px;box-shadow:0 3px 14px #0001}
+.msg{max-width:88%;padding:11px 13px;border-radius:13px;margin:9px 0;line-height:1.4;font-size:14px}.bot{background:#f0f1f3}.user{background:#ffe8ed;margin-left:auto}
+.options{display:grid;gap:8px;margin:12px 0}.options button,.mainbtn{border:0;border-radius:10px;padding:11px 12px;text-align:left;cursor:pointer;font-size:14px;background:#fff;border:1px solid #ddd}.options button:hover{border-color:var(--red);background:#fff6f8}
+.mainbtn{background:var(--red);color:white;text-align:center;font-weight:bold;border:none;width:100%;margin-top:12px}.tag{display:inline-block;background:#ffe8ed;color:#9c1028;border-radius:20px;padding:4px 8px;font-size:11px;font-weight:bold;margin-bottom:7px}
+.good{color:var(--ok);font-weight:bold}.bad{color:var(--bad);font-weight:bold}.score{font-size:22px;font-weight:bold;color:var(--red)}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:13px}.hidden{display:none}
+</style></head>
+<body><header><h1>AuditBot – Entorno de la Auditoría Financiera</h1><p>Auditoría Financiera II · Sesión 1</p></header>
+<div class="wrap"><div id="chat" class="chat"></div><button id="restart" class="mainbtn hidden" onclick="start()">Reiniciar actividad</button></div>
+<footer>Recurso académico interactivo · Uso en clase</footer>
+<script>
+const qs=[
+{tag:'SOA',q:'Una empresa necesita que sus estados financieros sean examinados por un tercero independiente. ¿Qué caracteriza principalmente a una Sociedad de Auditoría Externa Independiente?',o:['Forma parte del área contable de la empresa auditada.','Emite una opinión profesional independiente sobre los estados financieros.','Autoriza las declaraciones tributarias de la empresa.'],a:1,e:'La auditoría externa exige independencia respecto de la entidad auditada. Su finalidad es obtener evidencia suficiente y adecuada para sustentar una opinión profesional.'},
+{tag:'Tecnología',q:'Durante una auditoría existen miles de transacciones. ¿Cuál es un uso apropiado del software de auditoría?',o:['Analizar grandes volúmenes de datos e identificar operaciones inusuales.','Reemplazar completamente el juicio profesional del auditor.','Modificar los registros contables para corregir diferencias.'],a:0,e:'Las herramientas tecnológicas apoyan el análisis, la selección de datos y la detección de patrones o excepciones; no sustituyen el juicio profesional ni autorizan al auditor a alterar registros.'},
+{tag:'Ética',q:'El gerente de la empresa auditada ofrece al auditor un beneficio personal importante durante el encargo. ¿Cuál es el principal riesgo?',o:['Que aumente el riesgo inherente.','Que se comprometa la independencia y objetividad del auditor.','Que disminuya automáticamente la materialidad.'],a:1,e:'Los intereses o beneficios personales pueden crear amenazas a la independencia y objetividad. El auditor debe evaluar la amenaza y aplicar las salvaguardas correspondientes.'},
+{tag:'Responsabilidad',q:'Si la gerencia prepara los estados financieros, ¿qué responsabilidad conserva el auditor independiente?',o:['Preparar y aprobar los estados financieros.','Diseñar todas las políticas contables de la empresa.','Obtener evidencia y emitir una opinión conforme al marco profesional aplicable.'],a:2,e:'La preparación de los estados financieros corresponde a la administración. El auditor es responsable de ejecutar el encargo y sustentar adecuadamente su opinión.'},
+{tag:'Caso',q:'El auditor descubre que un miembro de su equipo tiene una relación financiera relevante con la empresa auditada. ¿Qué debería hacer primero?',o:['Ignorarla si el integrante tiene experiencia.','Evaluar la amenaza a la independencia y adoptar medidas apropiadas.','Esperar hasta terminar la auditoría para comunicarla.'],a:1,e:'Las amenazas a la independencia deben identificarse y evaluarse oportunamente. Según su importancia, corresponde aplicar salvaguardas, cambiar al integrante o tomar otras medidas apropiadas.'}
+];
+let i=0,score=0; const chat=document.getElementById('chat'),restart=document.getElementById('restart');
+function add(t,c='bot'){let d=document.createElement('div');d.className='msg '+c;d.innerHTML=t;chat.appendChild(d);window.scrollTo(0,document.body.scrollHeight)}
+function start(){i=0;score=0;chat.innerHTML='';restart.classList.add('hidden');add('<span class="tag">BIENVENIDA</span><br><b>¡Hola! Soy AuditBot.</b><br>Hoy revisaremos el entorno de la auditoría financiera, las SOA, tecnología, ética e independencia. Resolverás 5 situaciones.');setTimeout(next,400)}
+function next(){if(i>=qs.length)return finish();let x=qs[i];add('<span class="tag">'+x.tag+'</span><br><b>'+x.q+'</b>');let box=document.createElement('div');box.className='options';x.o.forEach((v,n)=>{let b=document.createElement('button');b.textContent=v;b.onclick=()=>answer(n,box);box.appendChild(b)});chat.appendChild(box)}
+function answer(n,box){[...box.children].forEach(b=>b.disabled=true);let x=qs[i];add(x.o[n],'user');if(n===x.a){score++;add('<span class="good">✓ Correcto.</span> '+x.e)}else add('<span class="bad">✗ Revisa este punto.</span> '+x.e);i++;setTimeout(next,650)}
+function finish(){let level=score===5?'Excelente dominio':score>=3?'Buen avance':'Conviene reforzar los conceptos';add('<span class="tag">RESULTADO</span><br><span class="score">'+score+'/5</span><br><b>'+level+'</b><br><br>Idea clave: la tecnología fortalece el trabajo del auditor, pero la independencia, la ética y el juicio profesional siguen siendo esenciales.');add('<b>Pregunta para discusión en clase:</b><br>¿La inteligencia artificial podría llegar a reemplazar al auditor independiente? Sustenta tu respuesta.');restart.classList.remove('hidden')}
+start();
+</script></body></html>
