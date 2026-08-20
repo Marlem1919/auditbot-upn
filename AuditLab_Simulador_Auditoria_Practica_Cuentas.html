@@ -1,0 +1,104 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AuditLab</title>
+<style>body{margin:0;font-family:Arial;background:#f4f6f8;color:#222}header{background:#171717;color:white;padding:16px 24px;font-size:20px;font-weight:bold}header b{color:#f5c400}.wrap{display:grid;grid-template-columns:220px 1fr;min-height:92vh}aside{background:white;padding:15px;border-right:1px solid #ddd}button{cursor:pointer}.nav{width:100%;padding:10px;margin:3px 0;border:0;border-radius:7px;text-align:left;background:white}.nav:hover,.nav.active{background:#fff1a8}main{padding:22px}.page{display:none}.page.active{display:block}.card{background:white;border:1px solid #ddd;border-radius:10px;padding:16px;margin:10px 0}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.kpi{font-size:25px;font-weight:bold}table{width:100%;border-collapse:collapse;background:white}th,td{padding:10px;border-bottom:1px solid #ddd;text-align:left}th{background:#fafafa}.note{background:#fff5c4;border-left:4px solid #f5c400;padding:12px}.btn{border:0;background:#171717;color:white;padding:9px 12px;border-radius:6px}input,select,textarea{width:100%;padding:8px;margin:5px 0 10px;box-sizing:border-box}textarea{min-height:65px}@media(max-width:750px){.wrap{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}}</style></head>
+<body><header><b>AUDIT</b>LAB — Simulador académico de auditoría financiera</header><div class="wrap"><aside><p><b>Comercial Andina S.A.C.</b><br><small>EE.FF. 31/12/2025</small></p>
+<button class="nav active" onclick="go('d',this)">▣ Dashboard</button><button class="nav" onclick="go('c',this)">▤ Cliente</button><button class="nav" onclick="go('e',this)">▥ Estados financieros</button><button class="nav" onclick="go('m',this)">◎ Materialidad</button><button class="nav" onclick="go('r',this)">⚠ Riesgos</button><button class="nav" onclick="go('p',this)">✓ Programa</button><button class="nav" onclick="go('h',this)">! Hallazgos</button><button class="nav" onclick="go('areas',this)">▦ Práctica por cuentas</button><button class="nav" onclick="go('sim',this)">▶ Modo práctica</button><button class="nav" onclick="go('x',this)">⚖ Ética</button></aside><main>
+<section id="d" class="page active"><h1>Dashboard</h1><p class="note"><b>Objetivo:</b> observar cómo un software organiza el encargo, riesgos, procedimientos y evidencia. Simulación educativa, no corresponde a una marca comercial.</p><div class="grid"><div class="card">Avance<div class="kpi">38%</div></div><div class="card">Riesgos<div class="kpi">4</div></div><div class="card">Procedimientos<div class="kpi">8</div></div><div class="card">Hallazgos<div class="kpi">1</div></div></div><div class="card"><b>Etapa actual:</b> Planeación y conocimiento inicial del cliente.</div></section>
+<section id="c" class="page"><h1>Cliente y encargo</h1><div class="card"><label>Cliente</label><input value="Comercial Andina S.A.C."><label>Periodo</label><input value="2025"><label>Encargo</label><input value="Auditoría de estados financieros"><label>Objetivo</label><textarea>Emitir una opinión independiente sobre los estados financieros.</textarea></div></section>
+<section id="e" class="page"><h1>Estados financieros</h1><table><tr><th>Cuenta</th><th>2025 S/</th><th>2024 S/</th><th>Variación</th></tr><tr><td>Efectivo</td><td>180,000</td><td>150,000</td><td>20%</td></tr><tr><td>Cuentas por cobrar</td><td>620,000</td><td>410,000</td><td>51%</td></tr><tr><td>Inventarios</td><td>890,000</td><td>650,000</td><td>37%</td></tr><tr><td>Activo total</td><td>2,850,000</td><td>2,300,000</td><td>24%</td></tr><tr><td>Ventas</td><td>4,800,000</td><td>3,900,000</td><td>23%</td></tr></table></section>
+<section id="m" class="page"><h1>Materialidad</h1><div class="card"><label>Base</label><select id="base" onchange="calc()"><option value="4800000">Ventas</option><option value="320000">Utilidad antes de impuestos</option><option value="2850000">Activo total</option></select><label>Porcentaje</label><input id="pct" type="number" value="1" step=".1" oninput="calc()"><h2 id="mat">S/ 48,000</h2></div></section>
+<section id="r" class="page"><h1>Matriz de riesgos</h1><table><tr><th>Cuenta</th><th>Riesgo</th><th>Nivel</th></tr><tr><td>Ventas</td><td>Reconocimiento inadecuado de ingresos</td><td><b>ALTO</b></td></tr><tr><td>Inventarios</td><td>Existencias obsoletas o inexistentes</td><td><b>ALTO</b></td></tr><tr><td>CxC</td><td>Estimación insuficiente de incobrables</td><td>MEDIO</td></tr><tr><td>Efectivo</td><td>Diferencias de conciliación</td><td>BAJO</td></tr></table></section>
+<section id="p" class="page"><h1>Programa de auditoría</h1><table><tr><th></th><th>Área</th><th>Procedimiento</th><th>Estado</th></tr><tr><td><input type="checkbox" onchange="st(this)"></td><td>Ventas</td><td>Verificar muestra de ventas y sustento.</td><td>Pendiente</td></tr><tr><td><input type="checkbox" onchange="st(this)"></td><td>Inventarios</td><td>Contrastar kardex con conteo físico.</td><td>Pendiente</td></tr><tr><td><input type="checkbox" onchange="st(this)"></td><td>CxC</td><td>Preparar confirmaciones de saldos.</td><td>Pendiente</td></tr></table></section>
+<section id="h" class="page"><h1>Hallazgos</h1><div class="card"><label>Condición</label><textarea>Se identificaron diferencias entre kardex y conteo físico.</textarea><label>Efecto / riesgo</label><textarea>Posible error en la valuación de inventarios.</textarea><label>Recomendación</label><textarea>Conciliar diferencias e investigar partidas pendientes.</textarea><button class="btn" onclick="alert('Hallazgo registrado en la simulación')">Registrar</button></div></section>
+
+
+<section id="areas" class="page"><h1>Práctica por cuentas contables</h1>
+<p class="note"><b>Misión del auditor:</b> revisa cinco rubros de los estados financieros. En cada cuenta identifica el riesgo y selecciona el procedimiento de auditoría más adecuado. Los datos son ficticios para fines académicos.</p>
+
+<div class="card"><h2>1. Efectivo y equivalentes de efectivo</h2>
+<p><b>Situación:</b> saldo contable S/ 180,000. El estado bancario muestra S/ 165,000. Existen cheques girados no cobrados por S/ 10,000 y depósitos en tránsito por S/ 25,000.</p>
+<label>¿Cuál sería el saldo conciliado esperado?</label>
+<input id="cashcalc" type="number" placeholder="Ingrese el saldo en soles">
+<label>¿Qué procedimiento aplicarías?</label>
+<select id="a1"><option value="">Seleccione...</option><option value="1">Preparar/revisar conciliación bancaria y contrastar con estados bancarios</option><option value="0">Confirmar cuentas por cobrar</option><option value="0">Observar inventario físico</option></select>
+<p id="fb1"></p><button class="btn" onclick="checkArea(1)">Comprobar efectivo</button></div>
+
+<div class="card"><h2>2. Cuentas por cobrar comerciales</h2>
+<p><b>Situación:</b> saldo S/ 620,000. Un cliente con saldo de S/ 95,000 está vencido hace más de 180 días y no registra pagos posteriores.</p>
+<label>¿Qué riesgo identificas?</label>
+<select id="r2"><option value="">Seleccione...</option><option value="1">Sobrevaloración de cuentas por cobrar por deterioro/incobrabilidad</option><option value="0">Subvaluación del efectivo</option><option value="0">Existencia de propiedad, planta y equipo</option></select>
+<label>¿Qué procedimiento aplicarías?</label>
+<select id="a2"><option value="">Seleccione...</option><option value="1">Confirmar saldos, revisar cobros posteriores y evaluar estimación de incobrables</option><option value="0">Realizar arqueo de caja únicamente</option><option value="0">Inspeccionar activos fijos</option></select>
+<p id="fb2"></p><button class="btn" onclick="checkArea(2)">Comprobar CxC</button></div>
+
+<div class="card"><h2>3. Inventarios</h2>
+<p><b>Situación:</b> saldo S/ 890,000. El kardex registra 1,000 unidades del producto A, pero durante el conteo físico se observan 930 unidades.</p>
+<label>Calcula la diferencia de unidades</label><input id="invcalc" type="number" placeholder="Unidades faltantes">
+<label>¿Qué procedimiento es más adecuado?</label>
+<select id="a3"><option value="">Seleccione...</option><option value="1">Observar conteo físico, conciliar con kardex e investigar diferencias</option><option value="0">Confirmar únicamente bancos</option><option value="0">Revisar planillas</option></select>
+<p id="fb3"></p><button class="btn" onclick="checkArea(3)">Comprobar inventarios</button></div>
+
+<div class="card"><h2>4. Propiedad, planta y equipo</h2>
+<p><b>Situación:</b> la empresa registró una maquinaria por S/ 240,000 durante el año. No se encuentra adjunta la factura en el expediente digital y aún no se ha verificado físicamente.</p>
+<label>¿Qué afirmaciones requieren mayor atención?</label>
+<select id="r4"><option value="">Seleccione...</option><option value="1">Existencia, derechos y obligaciones, y valuación</option><option value="0">Solo integridad de ventas</option><option value="0">Solo corte de cuentas por pagar</option></select>
+<label>¿Qué harías?</label>
+<select id="a4"><option value="">Seleccione...</option><option value="1">Inspeccionar físicamente la maquinaria y revisar factura, pago, propiedad y depreciación</option><option value="0">Circularizar clientes</option><option value="0">Realizar arqueo de caja</option></select>
+<p id="fb4"></p><button class="btn" onclick="checkArea(4)">Comprobar PPE</button></div>
+
+<div class="card"><h2>5. Cuentas por pagar comerciales</h2>
+<p><b>Situación:</b> saldo S/ 510,000. Se encuentra una factura de proveedor por S/ 42,000 recibida el 28/12/2025, pero registrada recién el 05/01/2026.</p>
+<label>¿Cuál es el principal riesgo?</label>
+<select id="r5"><option value="">Seleccione...</option><option value="1">Pasivos no registrados y error de corte</option><option value="0">Sobrevaloración de cuentas por cobrar</option><option value="0">Deterioro de activos fijos</option></select>
+<label>¿Qué procedimiento aplicarías?</label>
+<select id="a5"><option value="">Seleccione...</option><option value="1">Buscar pasivos no registrados y revisar facturas/pagos posteriores al cierre</option><option value="0">Observar inventarios únicamente</option><option value="0">Confirmar clientes</option></select>
+<p id="fb5"></p><button class="btn" onclick="checkArea(5)">Comprobar CxP</button></div>
+
+<div class="card"><h2>Resultado de la práctica por cuentas</h2><p>Completa las cinco áreas y luego calcula tu resultado.</p>
+<button class="btn" onclick="areaScore()">Calcular puntaje</button><div id="areaResult"></div></div>
+</section>
+<section id="sim" class="page"><h1>Modo práctica – Simulación guiada</h1>
+<p class="note"><b>Rol:</b> eres integrante del equipo auditor de Comercial Andina S.A.C. Resuelve 5 retos. El sistema te dará retroalimentación y un puntaje final.</p>
+<div class="card"><b>Reto 1 · Analiza los EE.FF.</b><p>Las cuentas por cobrar aumentaron de S/ 410,000 a S/ 620,000. ¿Qué harías primero?</p>
+<select id="q1"><option value="">Seleccione...</option><option value="1">Investigar la variación y evaluar riesgo de incobrabilidad</option><option value="0">Ignorarla porque las ventas también aumentaron</option><option value="0">Emitir inmediatamente una opinión modificada</option></select></div>
+<div class="card"><b>Reto 2 · Identifica el riesgo</b><p>Inventarios aumentaron 37%. ¿Qué riesgo merece atención?</p>
+<select id="q2"><option value="">Seleccione...</option><option value="1">Existencia y valuación del inventario</option><option value="0">Solo presentación del patrimonio</option><option value="0">Únicamente caja chica</option></select></div>
+<div class="card"><b>Reto 3 · Elige el procedimiento</b><p>Para responder al riesgo de inventarios, selecciona el procedimiento más pertinente.</p>
+<select id="q3"><option value="">Seleccione...</option><option value="1">Contrastar kardex con conteo físico y revisar valuación</option><option value="0">Revisar únicamente contratos laborales</option><option value="0">Confirmar saldos bancarios solamente</option></select></div>
+<div class="card"><b>Reto 4 · Tecnología</b><p>Si tuvieras miles de transacciones de ventas, ¿cómo podría ayudarte un software de auditoría?</p>
+<select id="q4"><option value="">Seleccione...</option><option value="1">Analizando grandes volúmenes para detectar duplicados, excepciones y patrones</option><option value="0">Reemplazando totalmente el juicio profesional del auditor</option><option value="0">Eliminando la necesidad de evidencia</option></select></div>
+<div class="card"><b>Reto 5 · Ética e independencia</b><p>El gerente ofrece entradas VIP al equipo antes de terminar la auditoría. ¿Qué corresponde?</p>
+<select id="q5"><option value="">Seleccione...</option><option value="1">Evaluar la amenaza a independencia/objetividad y rechazar el beneficio</option><option value="0">Aceptar porque no cambia los estados financieros</option><option value="0">Aceptar si todo el equipo está de acuerdo</option></select></div>
+<button class="btn" onclick="grade()">Finalizar simulación</button>
+<div id="score" class="card" style="display:none"></div>
+<button class="btn" style="margin-top:8px" onclick="resetSim()">Intentar nuevamente</button>
+</section>
+<section id="x" class="page"><h1>Ética e independencia</h1><p class="note"><b>Caso:</b> el gerente financiero ofrece al equipo auditor entradas VIP antes de concluir la auditoría.</p><div class="card"><label>¿Qué principio puede verse amenazado?</label><select id="eth"><option>Seleccione...</option><option>Independencia y objetividad</option><option>Confidencialidad</option><option>Competencia profesional</option></select><button class="btn" onclick="eth()">Comprobar</button><p id="resp"></p></div></section>
+</main></div><script>function go(id,b){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));b.classList.add('active')}function calc(){let v=+base.value,p=+pct.value;mat.innerText='S/ '+(v*p/100).toLocaleString('es-PE')}function st(x){x.closest('tr').cells[3].innerText=x.checked?'Completado':'Pendiente'}function eth(){resp.innerHTML=eth=document.getElementById('eth').value==='Independencia y objetividad'?'<b>Correcto.</b> Puede afectar la imparcialidad del auditor.':'Revisa el caso y piensa en la imparcialidad del auditor.'}
+function grade(){
+ let ids=['q1','q2','q3','q4','q5'], n=0, pending=false;
+ ids.forEach(id=>{let v=document.getElementById(id).value;if(v==="")pending=true;if(v==="1")n++});
+ let box=document.getElementById('score');box.style.display='block';
+ if(pending){box.innerHTML='<b>Completa los 5 retos antes de finalizar.</b>';return}
+ let pct=n*20, msg=pct>=80?'Excelente: identificas adecuadamente riesgos, procedimientos, tecnología y ética.':pct>=60?'Buen avance: revisa los retos incorrectos y vuelve a intentarlo.':'Necesitas reforzar el análisis antes de continuar.';
+ box.innerHTML='<h2>Puntaje: '+n+'/5 ('+pct+'%)</h2><p>'+msg+'</p><p><b>Retroalimentación clave:</b> el software apoya el análisis y la documentación, pero no reemplaza el juicio profesional ni la independencia del auditor.</p>';
+}
+function resetSim(){['q1','q2','q3','q4','q5'].forEach(id=>document.getElementById(id).value='');document.getElementById('score').style.display='none';}
+
+let areaDone={1:false,2:false,3:false,4:false,5:false}, areaOK={1:false,2:false,3:false,4:false,5:false};
+function checkArea(n){
+ let ok=false,msg='';
+ if(n===1){ok=(Number(document.getElementById('cashcalc').value)===180000 && document.getElementById('a1').value==='1');msg=ok?'Correcto. S/ 165,000 + S/ 25,000 - S/ 10,000 = S/ 180,000. La conciliación permite explicar la diferencia entre banco y libros.':'Revisa: saldo banco + depósitos en tránsito - cheques pendientes, y selecciona conciliación bancaria.';}
+ if(n===2){ok=(document.getElementById('r2').value==='1'&&document.getElementById('a2').value==='1');msg=ok?'Correcto. Debe evaluarse recuperabilidad mediante confirmación, cobros posteriores y deterioro.':'Revisa el riesgo de incobrabilidad y la evidencia necesaria para sustentar el saldo.';}
+ if(n===3){ok=(Number(document.getElementById('invcalc').value)===70&&document.getElementById('a3').value==='1');msg=ok?'Correcto. La diferencia es 70 unidades y debe investigarse conciliando conteo físico y kardex.':'Calcula 1,000 - 930 y selecciona el procedimiento relacionado con existencia del inventario.';}
+ if(n===4){ok=(document.getElementById('r4').value==='1'&&document.getElementById('a4').value==='1');msg=ok?'Correcto. El auditor debe obtener evidencia de existencia, propiedad, costo y depreciación.':'Piensa qué evidencia demuestra que la maquinaria existe, pertenece a la empresa y está correctamente valorizada.';}
+ if(n===5){ok=(document.getElementById('r5').value==='1'&&document.getElementById('a5').value==='1');msg=ok?'Correcto. La factura corresponde al periodo 2025; se debe evaluar corte y búsqueda de pasivos no registrados.':'Revisa la fecha de la factura frente al cierre y el riesgo de obligaciones omitidas.';}
+ areaDone[n]=true;areaOK[n]=ok;document.getElementById('fb'+n).innerHTML='<b>'+(ok?'✓ ':'✗ ')+msg+'</b>';
+}
+function areaScore(){
+ let done=Object.values(areaDone).filter(Boolean).length;
+ if(done<5){document.getElementById('areaResult').innerHTML='<p><b>Primero comprueba las 5 cuentas.</b> Llevas '+done+'/5.</p>';return;}
+ let pts=Object.values(areaOK).filter(Boolean).length;
+ let msg=pts===5?'Excelente desempeño como auditor.':pts>=3?'Buen avance. Revisa las cuentas con error y vuelve a comprobarlas.':'Conviene revisar riesgos y procedimientos antes de repetir la práctica.';
+ document.getElementById('areaResult').innerHTML='<h2>'+pts+'/5 — '+(pts*20)+'%</h2><p>'+msg+'</p>';
+}
+</script></body></html>
